@@ -40,11 +40,11 @@ def get_galaxy_connection(args, file=None, log=None, login_required=True):
     api_key = args.api_key or file_content.get('api_key')
 
     if args.user and args.password:
-        return galaxy.GalaxyInstance(url=galaxy_url, email=args.user, password=args.password)
+        return galaxy.GalaxyInstance(url=galaxy_url, email=args.user, password=args.password, verify=False)
     elif api_key:
-        return galaxy.GalaxyInstance(url=galaxy_url, key=api_key)
+        return galaxy.GalaxyInstance(url=galaxy_url, key=api_key, verify=False)
     elif not login_required:
-        return galaxy.GalaxyInstance(url=galaxy_url)
+        return galaxy.GalaxyInstance(url=galaxy_url, verify=False)
     else:
         raise ValueError("Missing api key or user & password combination, in order to make a galaxy connection.")
 
